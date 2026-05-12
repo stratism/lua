@@ -102,7 +102,9 @@ local vec2 = { x = 5,  y = 5  }
 -- __tostring: Controls how the table is printed
 local vector_mt = {
     __add = function(v1, v2)
-        return { x = v1.x + v2.x, y = v1.y + v2.y }
+        local res = { x = v1.x + v2.x, y = v1.y + v2.y }
+        setmetatable(res, getmetatable(v1)) -- Inherit the same metatable
+        return res
     end,
     __tostring = function(v)
         return "Vector(" .. v.x .. ", " .. v.y .. ")"
@@ -118,6 +120,32 @@ local result = vec1 + vec2
 print("vec1: " .. tostring(vec1))
 print("vec2: " .. tostring(vec2))
 print("vec1 + vec2 = " .. tostring(result))
+print("")
+
+---------------------------------------------------------
+-- 6. SYSTEM COMMANDS
+---------------------------------------------------------
+print("--- 6. System Commands ---")
+
+-- os.execute: Best for running a command without needing the output.
+-- Returns: success (bool), exit_reason (string), exit_code (number)
+print("Creating a temporary directory...")
+local success, reason, code = os.execute("mkdir -p temp_lua_test")
+if success then
+    print("  Folder created successfully.")
+end
+
+-- io.popen: Best for capturing the output of a command.
+print("Listing files in current directory:")
+local handle = io.popen("ls -F | head -n 5")
+if handle then
+    local result = handle:read("*a")
+    handle:close()
+    print(result)
+end
+
+-- Cleaning up
+os.execute("rmdir temp_lua_test")
 print("")
 
 print("Tutorial Complete! Happy coding in Lua.")
