@@ -1,3 +1,4 @@
+#!/usr/bin/env lua
 -- Lua Comprehensive Tutorial
 -- This script covers basic syntax, tables, functions, control flow, and metatables.
 
