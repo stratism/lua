@@ -1,0 +1,89 @@
+head	1.1;
+access;
+symbols;
+locks; strict;
+comment	@# @;
+
+
+1.1
+date	2026.06.29.11.03.53;	author stratos;	state Exp;
+branches;
+next	;
+
+
+desc
+@@
+
+
+1.1
+log
+@Initial revision
+@
+text
+@#!/usr/bin/env lua
+
+-- $Id: sidle.lua,v 1.1 2026/05/15 04:33:50 stratos Exp $
+
+-- Script to manage hypridle in Lua
+-- Usage:
+--   sidle          (Toggles between start/stop)
+--   sidle stop     (Force stop)
+--   sidle start    (Force start)
+--   sidle restart  (Kill and start)
+
+local function is_running()
+    local handle = io.popen("pgrep -x swayidle")
+    local result = handle:read("*a")
+    handle:close()
+    return result ~= ""
+end
+
+local function stop_swayidle()
+    if is_running() then
+        os.execute("pkill -x swayidle")
+        print("swayidle stopped.")
+    else
+        print("swayidle was not running.")
+    end
+end
+
+local function start_swayidle()
+    if is_running() then
+        print("swayidle is already running.")
+    else
+       -- Using '&' to run in background
+       os.execute([[ swayidle -w timeout 120 'swaylock -f -F -k -i /home/stratos/Wallpapers/wallpaper.jpg' \
+                  timeout 300 'niri msg action power-off-monitors' \
+                  resume 'niri msg action power-on-monitors' before-sleep \
+                  'swaylock -f -F -k -i /home/stratos/Wallpapers/wallpaper.jpg' & ]])
+        print("swayidle started.")
+    end
+end
+
+local cmd = arg[1]
+local app = arg[0]
+
+if cmd == "stop" then
+    stop_swayidle()
+elseif cmd == "start" then
+    start_swayidle()
+elseif cmd == "restart" then
+    stop_swayidle()
+    os.execute("sleep 0.5")
+    start_swayidle()
+elseif cmd == "help" then
+   print(" Usage:")
+   print("   " .. app .. "          (Toggles between start/stop)")
+   print("   " .. app .. " stop     (Force stop)")
+   print("   " .. app .. " start    (Force start)")
+   print("   " .. app .. " restart  (Kill and start)")
+   
+else
+    -- Default toggle behavior
+    if is_running() then
+        stop_swayidle()
+    else
+        start_swayidle()
+    end
+end
+@
