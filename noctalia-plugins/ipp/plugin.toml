@@ -1,0 +1,9 @@
+id = "me/ipp"
+name = "Public IP Address Widget"
+version = "1.0.0"
+plugin_api = 3
+author = "me"
+
+[[widget]]
+id = "ipp"
+entry = "widget.luau"
