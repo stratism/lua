@@ -1,6 +1,6 @@
 --!nonstrict
 
-noctalia.setUpdateInterval(5000)
+noctalia.setUpdateInterval(1800000)
 barWidget.setTooltip("Internet Speed (click to test)")
 
 local currentText = "..."
