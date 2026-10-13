@@ -1,0 +1,9 @@
+id = "me/updates"
+name = "Check for Updates"
+version = "1.0.0"
+plugin_api = 3
+author = "me"
+
+[[widget]]
+id = "updates"
+entry = "widget.luau"
