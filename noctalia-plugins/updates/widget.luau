@@ -22,7 +22,7 @@ local function refresh()
         if result.exitCode == 0 then
             currentText = result.stdout:gsub("^%s+", ""):gsub("%s+$", "")
         else
-            currentText = "IP err"
+            currentText = "Con err"
         end
         render()
     end)
