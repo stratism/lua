@@ -1,6 +1,6 @@
 --!nonstrict
 
-noctalia.setUpdateInterval(3800000)
+noctalia.setUpdateInterval(10800000)
 barWidget.setTooltip("System Release")
 
 local currentText = "..."

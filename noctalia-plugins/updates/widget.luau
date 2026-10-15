@@ -1,6 +1,6 @@
 --!nonstrict
 
-noctalia.setUpdateInterval(3600000)
+noctalia.setUpdateInterval(10800000)
 barWidget.setTooltip("Check Updates")
 
 local currentText = "..."

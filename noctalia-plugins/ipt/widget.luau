@@ -1,6 +1,6 @@
 --!nonstrict
 
-noctalia.setUpdateInterval(60000)
+noctalia.setUpdateInterval(600000)
 barWidget.setTooltip("Tor IP")
 
 local currentText = "..."
